@@ -4,7 +4,8 @@
       <th scope="col">Date</th>
       <th scope="col">Payee</th>
       <th scope="col">Notes</th>
-      <th scope="col">Inflow/Outflow</th>
+      <th scope="col">Inflow</th>
+      <th scope="col">Outflow</th>
       <th scope="col">Make changes</th>
     </tr>
   </thead>
@@ -14,7 +15,7 @@
       <th scope="row">
         <div class="form-group">
           <div class="col-md-8">
-            <%= f.text_field :date, class: "form-control" %>
+            <%= f.date_field :date, class: "form-control" %>
           </div>
         </div>
       </th>
@@ -38,7 +39,15 @@
       <td>
         <div class="form-group">
           <div class="col-md-8">
-            <%= f.text_field :outflow, class: "form-control" %>
+            <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
           </div>
         </div>
       </td>
@@ -59,15 +68,16 @@
       <td>
         <%= transaction.notes %>
       </td>
-      <% if transaction.inflow %>
-        <td>
-          <%= transaction.inflow %>
-        </td>
-      <% else %>
-        <td>
-          -<%= transaction.outflow %>
-        </td>
-      <% end %>
+      <td>
+        <%= transaction.inflow %>
+      </td>
+      <td>
+        <% if transaction.outflow %>
+          <%= transaction.outflow * -1 %>
+        <% else %>
+          <%= transaction.outflow %>
+        <% end %>
+      </td>
       <td>
         <%= link_to "Edit", edit_transaction_path(transaction) %>
         <%= link_to "Delete", transaction_path(transaction), method: "delete" %>
