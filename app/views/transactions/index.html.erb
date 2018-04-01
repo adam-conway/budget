@@ -1,7 +1,88 @@
-<% @transactions.each do |transaction| %>
-  <%= transaction.date %>
-  <%= transaction.payee %>
-  <%= transaction.notes %>
-  <%= transaction.outflow %>
-  <%= transaction.inflow %>
-<% end %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Payee</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Inflow</th>
+      <th scope="col">Outflow</th>
+      <th scope="col">Make changes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <%= form_for @transaction, :html => {:class => "form-inline center"} do |f| %>
+      <th scope="row">
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.date_field :date, class: "form-control" %>
+          </div>
+        </div>
+      </th>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :payee, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :notes, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <%= f.submit class: "btn btn-default btn-primary" %>
+      </td>
+      <% end %>
+    </tr>
+    <% @transactions.each do |transaction| %>
+    <tr>
+      <th scope="row">
+        <%= transaction.date %>
+      </th>
+      <td>
+        <%= transaction.payee %>
+      </td>
+      <td>
+        <%= transaction.notes %>
+      </td>
+      <td>
+        <%= transaction.inflow %>
+      </td>
+      <td>
+        <% if transaction.outflow %>
+          <%= transaction.outflow * -1 %>
+        <% else %>
+          <%= transaction.outflow %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "Edit", edit_transaction_path(transaction) %>
+        <%= link_to "Delete", transaction_path(transaction), method: "delete" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,39 @@
+<%= form_for @transaction, :html => {:class => "form-horizontal center"} do |f| %>
+
+<div class="form-group">
+  <%= f.label :date, "Date", class: "col-md-4 control-label" %>
+  <div class="col-md-8">
+    <%= f.date_field :date, class: "form-control" %>
+  </div>
+</div>
+
+  <div class="form-group">
+    <%= f.label :payee, "Payee", class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :payee, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :notes, "Notes", class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.text_field :notes, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :inflow, "Inflow", class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :outflow, "Outflow", class: "col-md-4 control-label" %>
+    <div class="col-md-8">
+      <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= f.submit class: "btn btn-default btn-primary" %>
+<% end %>
