@@ -3,11 +3,7 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
     @transaction = Transaction.new
   end
-  #
-  # def new
-  #   @company = Company.new
-  # end
-  #
+
   def create
     @transaction = Transaction.new(transaction_params)
     if @transaction.save
@@ -19,28 +15,22 @@ class TransactionsController < ApplicationController
       render :index
     end
   end
-  #
-  # def show
-  #   @company = Company.find(params[:id])
-  #   @contact = Contact.new
-  #   @contacts = @company.contacts
-  # end
-  #
-  # def edit
-  #   @company = Company.find(params[:id])
-  # end
-  #
-  # def update
-  #   @company = Company.find(params[:id])
-  #   @company.update(company_params)
-  #   if @company.save
-  #     flash[:success] = "#{@company.name} updated!"
-  #     redirect_to company_path(@company)
-  #   else
-  #     render :edit
-  #   end
-  # end
-  #
+
+  def edit
+    @transaction = Transaction.find(params[:id])
+  end
+
+  def update
+    @transaction = Transaction.find(params[:id])
+    @transaction.update(transaction_params)
+    if @transaction.save
+      flash[:success] = 'Transaction updated!'
+      redirect_to transactions_path
+    else
+      render :edit
+    end
+  end
+
   def destroy
     transaction = Transaction.find(params[:id])
     transaction.destroy
