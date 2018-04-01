@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "User sees all transactions" do
-  scenario "a user sees all the companies" do
+  scenario "a user sees all the transactions" do
     transaction1 = Transaction.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
     transaction2 = Transaction.create!(date: '2018-04-02', payee: "Mariah", notes: "This was a bad purchase", outflow: 60)
     transaction3 = Transaction.create!(date: '2018-04-03', payee: "Evan", notes: "This was a ok purchase", outflow: 70)
@@ -9,7 +9,7 @@ describe "User sees all transactions" do
 
     visit transactions_path
 
-    within('tr:nth-child(2)') do
+    within('tr:nth-child(3)') do
       click_link "Delete"
     end
 

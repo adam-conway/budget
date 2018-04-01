@@ -9,6 +9,45 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <%= form_for @transaction, :html => {:class => "form-inline center"} do |f| %>
+      <th scope="row">
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :date, class: "form-control" %>
+          </div>
+        </div>
+      </th>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :payee, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :notes, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :outflow, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <%= f.submit class: "btn btn-default btn-primary" %>
+      </td>
+      <% end %>
+    </tr>
     <% @transactions.each do |transaction| %>
     <tr>
       <th scope="row">
