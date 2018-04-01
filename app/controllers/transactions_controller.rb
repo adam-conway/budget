@@ -39,13 +39,13 @@ class TransactionsController < ApplicationController
   #   end
   # end
   #
-  # def destroy
-  #   company = Company.find(params[:id])
-  #   company.destroy
-  #
-  #   flash[:success] = "#{company.name} was successfully deleted!"
-  #   redirect_to companies_path
-  # end
+  def destroy
+    transaction = Transaction.find(params[:id])
+    transaction.destroy
+
+    flash[:success] = "Transaction from #{transaction.date} successfully deleted!"
+    redirect_to transactions_path
+  end
   #
   #
   # private
