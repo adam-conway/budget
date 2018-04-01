@@ -1,7 +1,39 @@
-<% @transactions.each do |transaction| %>
-  <%= transaction.date %>
-  <%= transaction.payee %>
-  <%= transaction.notes %>
-  <%= transaction.outflow %>
-  <%= transaction.inflow %>
-<% end %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Payee</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Inflow/Outflow</th>
+      <th scope="col">Make changes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+    <tr>
+      <th scope="row">
+        <%= transaction.date %>
+      </th>
+      <td>
+        <%= transaction.payee %>
+      </td>
+      <td>
+        <%= transaction.notes %>
+      </td>
+      <% if transaction.inflow %>
+        <td>
+          <%= transaction.inflow %>
+        </td>
+      <% else %>
+        <td>
+          -<%= transaction.outflow %>
+        </td>
+      <% end %>
+      <td>
+        <%= link_to "Edit", edit_transaction_path(transaction) %>
+        <%= link_to "Delete", transaction_path(transaction), method: "delete" %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

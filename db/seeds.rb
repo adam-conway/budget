@@ -17,5 +17,10 @@ NOTES = ["This was a great purchase", "This was a bad purchase", "This was a ok 
 
 10.times do |num|
   Transaction.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
-  puts "Transaction #{num} created"
+  puts "Positive transaction #{num} created"
+end
+
+10.times do |num|
+  Transaction.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
+  puts "Negative transaction #{num} created"
 end
