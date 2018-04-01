@@ -1,0 +1,7 @@
+<% @transactions.each do |transaction| %>
+  <%= transaction.date %>
+  <%= transaction.payee %>
+  <%= transaction.notes %>
+  <%= transaction.outflow %>
+  <%= transaction.inflow %>
+<% end %>

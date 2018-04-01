@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Transaction.destroy_all
+
+INFLOWS = (0..100)
+OUTFLOWS = (0..100)
+PAYEE = ["Adam", "Mariah", "Evan"]
+DATE = ['2018-04-01', '2018-04-02', '2018-04-03']
+NOTES = ["This was a great purchase", "This was a bad purchase", "This was a ok purchase"]
+
+
+10.times do |num|
+  Transaction.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
+  puts "Transaction #{num} created"
+end
