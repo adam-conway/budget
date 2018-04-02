@@ -2,18 +2,21 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.all
   end
-  #
-  # def create
-  #   @transaction = Transaction.new(transaction_params)
-  #   if @transaction.save
-  #     flash[:success] = "Transaction added!"
-  #     redirect_to transactions_path
-  #   else
-  #     flash[:error] = "Transaction wasn't created successfully"
-  #     @transactions = Transaction.all
-  #     render :index
-  #   end
-  # end
+
+  def new
+    @category = Category.new
+  end
+
+  def create
+    @category = Category.new(category_params)
+    if @category.save
+      flash[:success] = "Category added!"
+      redirect_to categories_path
+    else
+      flash[:error] = "Transaction wasn't created successfully"
+      render :new
+    end
+  end
   #
   # def edit
   #   @transaction = Transaction.find(params[:id])
@@ -39,9 +42,9 @@ class CategoriesController < ApplicationController
   # end
   #
   #
-  # private
-  #
-  # def transaction_params
-  #   params.require(:transaction).permit(:date, :payee, :notes, :inflow, :outflow)
-  # end
+  private
+
+  def category_params
+    params.require(:category).permit(:title, :current_balance)
+  end
 end
