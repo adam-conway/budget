@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Transaction.destroy_all
+Category.destroy_all
 
 INFLOWS = (0..100)
 OUTFLOWS = (0..100)
@@ -24,3 +25,9 @@ end
   Transaction.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
   puts "Negative transaction #{num} created"
 end
+
+Category.create!(title: "Rent", current_balance: 0)
+Category.create!(title: "Food", current_balance: 0)
+Category.create!(title: "Car Payment", current_balance: 0)
+Category.create!(title: "Car Insurance", current_balance: 0)
+Category.create!(title: "Phone", current_balance: 0)
