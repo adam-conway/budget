@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root "pages#show", page: "home"
 
   resources :transactions
+  resources :categories
 end
