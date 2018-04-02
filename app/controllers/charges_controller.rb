@@ -1,16 +1,24 @@
 class ChargesController < ApplicationController
   def index
+    @categories = Category.all
     @charges = Charge.order_by_date
     @charge = Charge.new
+  end
+
+  def new
+    @charge = Charge.new
+    @categories = Category.all
   end
 
   def create
     @charge = Charge.new(charge_params)
     if @charge.save
+      ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id])
       flash[:success] = "Charge added!"
       redirect_to charges_path
     else
       flash[:error] = "Charge wasn't created successfully"
+      @categories = Category.all
       @charges = Charge.all
       render :index
     end

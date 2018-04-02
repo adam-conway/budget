@@ -14,7 +14,11 @@ OUTFLOWS = (0..100)
 PAYEE = ["Adam", "Mariah", "Evan"]
 DATE = ['2018-04-01', '2018-04-02', '2018-04-03']
 NOTES = ["This was a great purchase", "This was a bad purchase", "This was an ok purchase"]
+CATEGORIES = ["Rent", "Food", "Car Payment", "Car Insurance", "Phone"]
 
+CATEGORIES.each do |category|
+  Category.create!(title: category, current_balance: 0)
+end
 
 10.times do |num|
   Charge.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
@@ -25,9 +29,3 @@ end
   Charge.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
   puts "Negative charge #{num} created"
 end
-
-Category.create!(title: "Rent", current_balance: 0)
-Category.create!(title: "Food", current_balance: 0)
-Category.create!(title: "Car Payment", current_balance: 0)
-Category.create!(title: "Car Insurance", current_balance: 0)
-Category.create!(title: "Phone", current_balance: 0)

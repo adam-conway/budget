@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th scope="col">Date</th>
+      <th scope="col">Category</th>
       <th scope="col">Payee</th>
       <th scope="col">Notes</th>
       <th scope="col">Inflow</th>
@@ -19,6 +20,13 @@
           </div>
         </div>
       </th>
+
+      <td>
+        <div class="form-group">
+          <%= f.collection_select :id, @categories, :id, :title %></br>
+          <%= link_to 'I need to split this charge', new_charge_path %>
+        </div>
+      </td>
 
       <td>
         <div class="form-group">
@@ -52,6 +60,7 @@
         </div>
       </td>
 
+
       <td>
         <%= f.submit class: "btn btn-default btn-primary" %>
       </td>
@@ -61,6 +70,9 @@
     <tr class="charges">
       <td scope="row">
         <%= charge.date %>
+      </td>
+      <td>
+        <%= charge.categories.map(&:title).join(" ,") %>
       </td>
       <td>
         <%= charge.payee %>
