@@ -14,7 +14,7 @@
       <%= form_for @transaction, :html => {:class => "form-inline center"} do |f| %>
       <th scope="row">
         <div class="form-group">
-          <div class="col-md-8">
+          <div class="col-md-12">
             <%= f.date_field :date, class: "form-control" %>
           </div>
         </div>
@@ -69,11 +69,11 @@
         <%= transaction.notes %>
       </td>
       <td>
-        <%= transaction.inflow %>
+        <%= number_to_currency(transaction.inflow) %>
       </td>
       <td>
         <% if transaction.outflow %>
-          <%= transaction.outflow * -1 %>
+          <%= number_to_currency(transaction.outflow * -1) %>
         <% else %>
           <%= transaction.outflow %>
         <% end %>

@@ -1,18 +1,18 @@
 require 'rails_helper'
 
-describe "User sees all transactions" do
-  scenario "a user sees all the transactions" do
-    transaction1 = Transaction.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
-    transaction2 = Transaction.create!(date: '2018-04-02', payee: "Mariah", notes: "This was a bad purchase", outflow: 60)
-    transaction3 = Transaction.create!(date: '2018-04-03', payee: "Evan", notes: "This was a ok purchase", outflow: 70)
-    transaction4 = Transaction.create!(date: '2018-04-03', payee: "BBC", notes: "This was an ok check", inflow: 100)
+describe "User sees all categories" do
+  scenario "a user sees all the categories" do
+    category1 = Category.create!(title: 'Rent', current_balance: 0)
+    category2 = Category.create!(title: 'Food', current_balance: 0)
+    category3 = Category.create!(title: 'Car payment', current_balance: 0)
+    category4 = Category.create!(title: 'Car insurance', current_balance: 0)
 
-    visit transactions_path
+    visit categories_path
 
-    expect(page).to have_content(transaction1.outflow)
-    expect(page).to have_content(transaction2.payee)
-    expect(page).to have_content(transaction3.notes)
-    expect(page).to have_content(transaction4.inflow)
+    expect(page).to have_content(category1.title)
+    expect(page).to have_content(category2.current_balance)
+    expect(page).to have_content(category3.current_balance)
+    expect(page).to have_content(category4.title)
   end
   # describe "User clicks links" do
   #   scenario "User clicks company link" do
