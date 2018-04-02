@@ -58,10 +58,10 @@
       <% end %>
     </tr>
     <% @transactions.each do |transaction| %>
-    <tr>
-      <th scope="row">
+    <tr class="transactions">
+      <td scope="row">
         <%= transaction.date %>
-      </th>
+      </td>
       <td>
         <%= transaction.payee %>
       </td>

@@ -9,7 +9,7 @@ describe "User sees all transactions" do
 
     visit transactions_path
 
-    within('tr:nth-child(3)') do
+    within('tr:nth-child(4)') do
       click_link "Delete"
     end
 
