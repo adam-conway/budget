@@ -1,0 +1,90 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Category</th>
+      <th scope="col">Payee</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Inflow</th>
+      <th scope="col">Outflow</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= form_for @charge, :html => {:class => "form-inline center"} do |f| %>
+    <tr>
+      <th scope="row">
+        <div class="form-group">
+          <div class="col-md-12">
+            <%= f.date_field :date, class: "form-control" %>
+          </div>
+        </div>
+      </th>
+
+      <td>
+        <div class="form-group">
+          <%= f.collection_select :id, @categories, :id, :title %></br>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :payee, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.text_field :notes, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
+          </div>
+        </div>
+      </td>
+    </tr>
+
+  <% @categories.each do |category| %>
+    <tr>
+      <%= form_for @charge_category, :html => {:class => "form-inline center"} do |f| %>
+        <th scope="row">
+
+        </th>
+
+        <td>
+          <p><%= category.title %></p>
+        </td>
+
+        <td>
+        </td>
+
+        <td>
+        </td>
+
+        <td>
+        </td>
+
+        <td>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= f.submit class: "btn btn-default btn-primary" %>
+<% end %>

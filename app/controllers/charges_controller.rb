@@ -7,6 +7,7 @@ class ChargesController < ApplicationController
 
   def new
     @charge = Charge.new
+    @charge_category = ChargeCategory.new
     @categories = Category.all
   end
 
