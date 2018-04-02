@@ -13,7 +13,7 @@ class CategoriesController < ApplicationController
       flash[:success] = "Category added!"
       redirect_to categories_path
     else
-      flash[:error] = "Transaction wasn't created successfully"
+      flash[:error] = "Category wasn't created successfully"
       render :new
     end
   end

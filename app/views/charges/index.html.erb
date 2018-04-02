@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <tr>
-      <%= form_for @transaction, :html => {:class => "form-inline center"} do |f| %>
+      <%= form_for @charge, :html => {:class => "form-inline center"} do |f| %>
       <th scope="row">
         <div class="form-group">
           <div class="col-md-12">
@@ -57,30 +57,30 @@
       </td>
       <% end %>
     </tr>
-    <% @transactions.each do |transaction| %>
-    <tr class="transactions">
+    <% @charges.each do |charge| %>
+    <tr class="charges">
       <td scope="row">
-        <%= transaction.date %>
+        <%= charge.date %>
       </td>
       <td>
-        <%= transaction.payee %>
+        <%= charge.payee %>
       </td>
       <td>
-        <%= transaction.notes %>
+        <%= charge.notes %>
       </td>
       <td>
-        <%= number_to_currency(transaction.inflow) %>
+        <%= number_to_currency(charge.inflow) %>
       </td>
       <td>
-        <% if transaction.outflow %>
-          <%= number_to_currency(transaction.outflow * -1) %>
+        <% if charge.outflow %>
+          <%= number_to_currency(charge.outflow * -1) %>
         <% else %>
-          <%= transaction.outflow %>
+          <%= charge.outflow %>
         <% end %>
       </td>
       <td>
-        <%= link_to "Edit", edit_transaction_path(transaction) %>
-        <%= link_to "Delete", transaction_path(transaction), method: "delete" %>
+        <%= link_to "Edit", edit_charge_path(charge) %>
+        <%= link_to "Delete", charge_path(charge), method: "delete" %>
       </td>
     </tr>
     <% end %>

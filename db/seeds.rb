@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Transaction.destroy_all
+Charge.destroy_all
 Category.destroy_all
 
 INFLOWS = (0..100)
@@ -17,13 +17,13 @@ NOTES = ["This was a great purchase", "This was a bad purchase", "This was an ok
 
 
 10.times do |num|
-  Transaction.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
-  puts "Positive transaction #{num} created"
+  Charge.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
+  puts "Positive charge #{num} created"
 end
 
 10.times do |num|
-  Transaction.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
-  puts "Negative transaction #{num} created"
+  Charge.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
+  puts "Negative charge #{num} created"
 end
 
 Category.create!(title: "Rent", current_balance: 0)
