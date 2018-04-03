@@ -1,3 +1,3 @@
 <% @budgets.each do |budget| %>
-  <%= budget.name %>
+  <%= link_to "#{budget.name}", budget_path(budget) %>
 <% end %>
