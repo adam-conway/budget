@@ -1,7 +1,7 @@
 class ChargesController < ApplicationController
   def index
-    @categories = Category.all
     @budget = Budget.find(params[:budget_id])
+    @categories = @budget.categories
     @charges = @budget.charges.order_by_date
     @charge = Charge.new
   end

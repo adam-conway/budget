@@ -1,5 +1,15 @@
-<% @budgets.each do |budget| %>
-  <%= link_to "#{budget.name}", budget_path(budget) %>
-<% end %>
+<div class="row">
+  <% @budgets.each do |budget| %>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><%= budget.name %> budget</h5>
+        <p class="card-text">There are <%= budget.categories.count %> categories in this budget: <%= budget.categories.map(&:title).join(", ") %></p>
+        <a href="/budgets/<%= budget.id %>" class="btn btn-primary">Go to budget</a>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
 
 <%= link_to "Create a new budget", new_budget_path %>
