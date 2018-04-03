@@ -3,8 +3,9 @@ require 'rails_helper'
 describe "User edits an existing budget" do
   scenario "a user edits already created budget" do
     budget = Budget.create!(name: "Denver")
-    visit edit_budget_path(budget)
+    visit budget_path(budget)
 
+    click_on("Edit Budget")
     fill_in "budget[name]", with: "Oakland"
     click_button "Update Budget"
 
