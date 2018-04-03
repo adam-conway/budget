@@ -21,9 +21,9 @@
       </th>
 
       <td>
-        <div class="form-group">
+        <!-- <div class="form-group">
           <%= f.collection_select :id, @categories, :id, :title %></br>
-        </div>
+        </div> -->
       </td>
 
       <td>
@@ -61,26 +61,36 @@
 
   <% @categories.each do |category| %>
     <tr>
-      <%= form_for @charge_category, :html => {:class => "form-inline center"} do |f| %>
-        <th scope="row">
+      <%= fields_for 'charge_categories[]', @charge_category do |cc_form| %>
+      <th scope="row">
 
-        </th>
+      </th>
 
-        <td>
-          <p><%= category.title %></p>
-        </td>
+      <td>
+        <p><%= category.title %></p>
+      </td>
 
-        <td>
-        </td>
+      <td>
+      </td>
 
-        <td>
-        </td>
+      <td>
+      </td>
 
-        <td>
-        </td>
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= cc_form.number_field :inflow, step: 0.01, class: "form-control" %>
+          </div>
+        </div>
+      </td>
 
-        <td>
-        </td>
+      <td>
+        <div class="form-group">
+          <div class="col-md-8">
+            <%= cc_form.number_field :outflow, step: 0.01, class: "form-control" %>
+          </div>
+        </div>
+      </td>
       <% end %>
     </tr>
   <% end %>

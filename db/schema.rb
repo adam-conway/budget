@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180402182419) do
+ActiveRecord::Schema.define(version: 20180402234455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20180402182419) do
     t.bigint "charge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "inflow"
+    t.float "outflow"
     t.index ["category_id"], name: "index_charge_categories_on_category_id"
     t.index ["charge_id"], name: "index_charge_categories_on_charge_id"
   end
