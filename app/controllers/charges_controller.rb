@@ -14,7 +14,11 @@ class ChargesController < ApplicationController
   def create
     @charge = Charge.new(charge_params)
     if @charge.save
-      ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id])
+      if params[:charge_categories]
+        build_charge_categories(params[:charge_categories], @charge)
+      else
+        ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id])
+      end
       flash[:success] = "Charge added!"
       redirect_to charges_path
     else
@@ -22,6 +26,16 @@ class ChargesController < ApplicationController
       @categories = Category.all
       @charges = Charge.all
       render :index
+    end
+  end
+
+  def build_charge_categories (params, charge)
+    params.each_with_index do |category, index|
+      next if category[:inflow] == "" && category[:outflow] == ""
+        ChargeCategory.create(charge_id: charge.id,
+                              category_id: index + 1,
+                              inflow: category[:inflow].to_f,
+                              outflow: category[:outflow].to_f)
     end
   end
 
@@ -47,7 +61,6 @@ class ChargesController < ApplicationController
     flash[:success] = "Charge from #{charge.date} successfully deleted!"
     redirect_to charges_path
   end
-
 
   private
 
