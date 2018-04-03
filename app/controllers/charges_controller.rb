@@ -1,18 +1,21 @@
 class ChargesController < ApplicationController
   def index
     @categories = Category.all
-    @charges = Charge.order_by_date
+    @budget = Budget.find(params[:budget_id])
+    @charges = @budget.charges.order_by_date
     @charge = Charge.new
   end
 
   def new
+    @budget = Budget.find(params[:budget_id])
     @charge = Charge.new
     @charge_category = ChargeCategory.new
     @categories = Category.all
   end
 
   def create
-    @charge = Charge.new(charge_params)
+    budget = Budget.find(params[:budget_id])
+    @charge = budget.charges.new(charge_params)
     if @charge.save
       if params[:charge_categories]
         build_charge_categories(params[:charge_categories], @charge)
@@ -20,10 +23,11 @@ class ChargesController < ApplicationController
         ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id])
       end
       flash[:success] = "Charge added!"
-      redirect_to charges_path
+      redirect_to budget_charges_path(budget)
     else
       flash[:error] = "Charge wasn't created successfully"
       @categories = Category.all
+      @budget = Budget.find(params[:budget_id])
       @charges = Charge.all
       render :index
     end
@@ -40,26 +44,29 @@ class ChargesController < ApplicationController
   end
 
   def edit
+    @budget = Budget.find(params[:budget_id])
     @charge = Charge.find(params[:id])
   end
 
   def update
+    budget = Budget.find(params[:budget_id])
     @charge = Charge.find(params[:id])
     @charge.update(charge_params)
     if @charge.save
       flash[:success] = 'Charge updated!'
-      redirect_to charges_path
+      redirect_to budget_charges_path(budget)
     else
       render :edit
     end
   end
 
   def destroy
+    budget = Budget.find(params[:budget_id])
     charge = Charge.find(params[:id])
     charge.destroy
 
     flash[:success] = "Charge from #{charge.date} successfully deleted!"
-    redirect_to charges_path
+    redirect_to budget_charges_path(budget)
   end
 
   private

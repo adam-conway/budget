@@ -27,11 +27,11 @@ CATEGORIES.each do |category|
 end
 
 10.times do |num|
-  Charge.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
+  Budget.all.sample.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
   puts "Positive charge #{num} created"
 end
 
 10.times do |num|
-  Charge.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
+  Budget.all.sample.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
   puts "Negative charge #{num} created"
 end

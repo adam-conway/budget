@@ -29,9 +29,9 @@ describe Category do
     it "has many charges" do
       budget = Budget.create!(name: "Denver")
       category = Category.create!(title: "Rent", current_balance: 0, budget_id: budget.id)
-      charge1 = Charge.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
-      charge2 = Charge.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", outflow: 50)
-      charge3 = Charge.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", outflow: 50)
+      charge1 = budget.charges.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
+      charge2 = budget.charges.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", outflow: 50)
+      charge3 = budget.charges.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", outflow: 50)
       ChargeCategory.create!(charge_id: charge1.id, category_id: category.id)
       ChargeCategory.create!(charge_id: charge2.id, category_id: category.id)
       ChargeCategory.create!(charge_id: charge3.id, category_id: category.id)
