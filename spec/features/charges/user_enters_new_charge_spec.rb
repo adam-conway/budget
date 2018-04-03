@@ -18,10 +18,11 @@ describe "User creates a new charge" do
     visit new_charge_path
 
     fill_in "charge[date]", with: "1991-08-28"
-    fill_in "charge[payee]", with: "Jake"
+    fill_in "charge[payee]", with: "Adam"
     fill_in "charge[notes]", with: "Horrible purchase"
     fill_in "charge[outflow]", with: 20
-    click_button "Create"
+
+    click_button("Create Charge")
 
     expect(current_path).to eq(charges_path)
     expect(page).to have_content("Jake")
