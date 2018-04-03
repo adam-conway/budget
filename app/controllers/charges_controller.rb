@@ -10,7 +10,7 @@ class ChargesController < ApplicationController
     @budget = Budget.find(params[:budget_id])
     @charge = Charge.new
     @charge_category = ChargeCategory.new
-    @categories = Category.all
+    @categories = @budget.categories
   end
 
   def create
