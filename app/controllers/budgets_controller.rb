@@ -1,5 +1,8 @@
 class BudgetsController < ApplicationController
 
+  def index
+    @budgets = Budget.all
+  end
   # def new
   #   @category = Category.new
   # end

@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   resources :charges
   resources :categories
+  resources :budgets, only: [:index]
 end
