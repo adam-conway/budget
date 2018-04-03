@@ -22,10 +22,10 @@ describe "User creates a new charge" do
     fill_in "charge[notes]", with: "Horrible purchase"
     fill_in "charge[outflow]", with: 20
 
-    click_button("Create Charge")
+    click_button "Create"
 
     expect(current_path).to eq(charges_path)
-    expect(page).to have_content("Jake")
+    expect(page).to have_content("Adam")
     expect(Charge.count).to eq(1)
   end
 end
