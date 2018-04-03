@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403183310) do
+ActiveRecord::Schema.define(version: 20180403194618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,9 +49,12 @@ ActiveRecord::Schema.define(version: 20180403183310) do
     t.float "inflow"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "budget_id"
+    t.index ["budget_id"], name: "index_charges_on_budget_id"
   end
 
   add_foreign_key "categories", "budgets"
   add_foreign_key "charge_categories", "categories"
   add_foreign_key "charge_categories", "charges"
+  add_foreign_key "charges", "budgets"
 end

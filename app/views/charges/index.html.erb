@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr>
-      <%= form_for @charge, :html => {:class => "form-inline center"} do |f| %>
+      <%= form_for [@budget, @charge], :html => {:class => "form-inline center"} do |f| %>
       <th scope="row">
         <div class="form-group">
           <div class="col-md-12">
@@ -24,7 +24,7 @@
       <td>
         <div class="form-group">
           <%= f.collection_select :id, @categories, :id, :title %></br>
-          <%= link_to 'I need to split this charge', new_charge_path %>
+          <%= link_to 'I need to split this charge', new_budget_charge_path(@budget) %>
         </div>
       </td>
 
@@ -91,8 +91,8 @@
         <% end %>
       </td>
       <td>
-        <%= link_to "Edit", edit_charge_path(charge) %>
-        <%= link_to "Delete", charge_path(charge), method: "delete" %>
+        <%= link_to "Edit", edit_budget_charge_path(@budget, charge) %>
+        <%= link_to "Delete", budget_charge_path(@budget, charge), method: "delete" %>
       </td>
     </tr>
     <% end %>

@@ -3,6 +3,7 @@ class Charge < ApplicationRecord
 
   has_many :charge_categories, dependent: :destroy
   has_many :categories, through: :charge_categories
+  belongs_to :budget
 
   def self.order_by_date
     order(date: :desc)
