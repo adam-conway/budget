@@ -22,16 +22,17 @@ describe Category do
     end
   end
 
-  # describe "relationships" do
-  #   it "has a category" do
-  #     transaction = Transaction.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
-  #     category = Category.create!(name: "Adam", role: "CEO", email: "adam.n.conway@gmail.com")
-  #     expect(contact).to respond_to(:company)
-  #   end
-  #   it "can have multiple categories" do
-  #     company = Company.create!(name: "Turing")
-  #     contact = company.contacts.create!(name: "Adam", role: "CEO", email: "adam.n.conway@gmail.com")
-  #     expect(contact).to respond_to(:company)
-  #   end
-  # end
+  describe "relationships" do
+    it "has many charges" do
+      category = Category.create!(title: "Rent", current_balance: 0)
+      charge1 = Charge.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
+      charge2 = Charge.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", outflow: 50)
+      charge3 = Charge.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", outflow: 50)
+      ChargeCategory.create!(charge_id: charge1.id, category_id: category.id)
+      ChargeCategory.create!(charge_id: charge2.id, category_id: category.id)
+      ChargeCategory.create!(charge_id: charge3.id, category_id: category.id)
+
+      expect(category).to respond_to(:charges)
+    end
+  end
 end
