@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post '/charge_categories', to: 'chargecategories#create'
 
   resources :charges
-  resources :categories
+  # resources :categories
 
   resources :budgets, only: [:index, :show] do
     resources :categories, only: [:new, :create, :index]

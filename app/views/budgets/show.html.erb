@@ -1,5 +1,6 @@
-<%= @budget.name %>
+<h1><%= @budget.name %></h1>
 
 <% @budget.categories.each do |category| %>
   <%= category.title %>
+  <%= number_to_currency(category.current_balance) %>
 <% end %>
