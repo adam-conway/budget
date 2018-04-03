@@ -6,9 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Budget.destroy_all
 Charge.destroy_all
 Category.destroy_all
 
+BUDGETS = ["Denver", "SF", "Adam"]
 INFLOWS = (0..100)
 OUTFLOWS = (0..100)
 PAYEE = ["Adam", "Mariah", "Evan"]
@@ -16,8 +18,12 @@ DATE = ['2018-04-01', '2018-04-02', '2018-04-03']
 NOTES = ["This was a great purchase", "This was a bad purchase", "This was an ok purchase"]
 CATEGORIES = ["Rent", "Food", "Car Payment", "Car Insurance", "Phone"]
 
+BUDGETS.each do |budget|
+  Budget.create!(name: budget)
+end
+
 CATEGORIES.each do |category|
-  Category.create!(title: category, current_balance: 0)
+  Category.create!(title: category, current_balance: 0, budget_id: rand(1..Budget.all.count))
 end
 
 10.times do |num|

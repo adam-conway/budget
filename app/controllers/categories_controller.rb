@@ -4,14 +4,16 @@ class CategoriesController < ApplicationController
   end
 
   def new
+    @budget = Budget.find(params[:budget_id])
     @category = Category.new
   end
 
   def create
-    @category = Category.new(category_params)
+    budget = Budget.find(params[:budget_id])
+    @category = budget.categories.new(category_params)
     if @category.save
       flash[:success] = "Category added!"
-      redirect_to categories_path
+      redirect_to budget_path(budget)
     else
       flash[:error] = "Category wasn't created successfully"
       render :new

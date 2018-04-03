@@ -1,0 +1,9 @@
+<h1><%= @budget.name %></h1>
+
+<% @budget.categories.each do |category| %>
+  <%= category.title %>
+  <%= number_to_currency(category.current_balance) %>
+<% end %></br>
+
+<%= link_to "Create a new category", new_budget_category_path(@budget) %>
+<%= link_to "Edit Budget", edit_budget_path(@budget) %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403174548) do
+ActiveRecord::Schema.define(version: 20180403183310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20180403174548) do
     t.float "current_balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "budget_id"
+    t.index ["budget_id"], name: "index_categories_on_budget_id"
   end
 
   create_table "charge_categories", force: :cascade do |t|
@@ -49,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180403174548) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "categories", "budgets"
   add_foreign_key "charge_categories", "categories"
   add_foreign_key "charge_categories", "charges"
 end

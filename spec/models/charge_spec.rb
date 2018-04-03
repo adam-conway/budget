@@ -29,17 +29,19 @@ describe Charge do
   describe "relationships" do
     it "has a category" do
       charge = Charge.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
-      category = Category.create!(title: "Rent", current_balance: 0)
+      budget = Budget.create!(name: "Denver")
+      category = Category.create!(title: "Rent", current_balance: 0, budget_id: budget.id)
       ChargeCategory.create!(charge_id: charge.id, category_id: category.id)
 
       expect(charge).to respond_to(:categories)
       expect(charge.categories.count).to eq(1)
     end
     it "can have multiple categories" do
+      budget = Budget.create!(name: "Denver")
       charge = Charge.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
-      category1 = Category.create!(title: "Rent", current_balance: 0)
-      category2 = Category.create!(title: "Food", current_balance: 0)
-      category3 = Category.create!(title: "Car", current_balance: 0)
+      category1 = Category.create!(title: "Rent", current_balance: 0, budget_id: budget.id)
+      category2 = Category.create!(title: "Food", current_balance: 0, budget_id: budget.id)
+      category3 = Category.create!(title: "Car", current_balance: 0, budget_id: budget.id)
       ChargeCategory.create!(charge_id: charge.id, category_id: category1.id)
       ChargeCategory.create!(charge_id: charge.id, category_id: category2.id)
       ChargeCategory.create!(charge_id: charge.id, category_id: category3.id)
