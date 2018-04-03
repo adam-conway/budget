@@ -7,9 +7,21 @@ class BudgetsController < ApplicationController
   def show
     @budget = Budget.find(params[:id])
   end
-  # def new
-  #   @category = Category.new
-  # end
+
+  def new
+    @budget = Budget.new
+  end
+
+  def create
+    @budget = Budget.new(budget_params)
+    if @budget.save
+      flash[:success] = "#{@budget.name} added!"
+      redirect_to budgets_path
+    else
+      flash[:error] = "Budget wasn't created successfully"
+      render :new
+    end
+  end
   #
   # def create
   #   @category = Category.new(category_params)
@@ -44,11 +56,11 @@ class BudgetsController < ApplicationController
   #   flash[:success] = "Transaction from #{transaction.date} successfully deleted!"
   #   redirect_to transactions_path
   # end
-  #
-  #
-  # private
-  #
-  # def category_params
-  #   params.require(:category).permit(:title, :current_balance)
-  # end
+
+
+  private
+
+  def budget_params
+    params.require(:budget).permit(:name)
+  end
 end
