@@ -9,6 +9,7 @@
 Budget.destroy_all
 Charge.destroy_all
 Category.destroy_all
+ChargeCategory.destroy_all
 
 BUDGETS = ["Denver", "SF", "Adam"]
 INFLOWS = (0..100)
@@ -34,4 +35,9 @@ end
 10.times do |num|
   Budget.all.sample.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
   puts "Negative charge #{num} created"
+end
+
+30.times do |num|
+  ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: Charge.all.sample.id, outflow: rand(100), inflow: rand(100))
+  puts "Charge category #{num} created"
 end
