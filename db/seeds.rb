@@ -40,7 +40,7 @@ end
 10.times do |num|
   charge = budget.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
   2.times do
-    ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: charge.id, outflow: rand(100), inflow: rand(100))
+    ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: charge.id, inflow: charge.inflow)
   end
   puts "Positive charge #{num} created"
 end
