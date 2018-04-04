@@ -3,7 +3,7 @@
 
   <% @budget.categories.each do |category| %>
     <%= category.title %>
-    <%= number_to_currency(category.current_balance) %>
+    <%= number_to_currency(category.total_inflows - category.total_outflows) %>
   <% end %></br>
 
   <%= link_to "Create a new category", new_user_budget_category_path(@user, @budget) %>
