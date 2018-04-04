@@ -1,38 +1,45 @@
 class BudgetsController < ApplicationController
 
   def index
-    @budgets = Budget.all
+    @user = User.find(params[:user_id])
+    @budgets = @user.budgets
   end
 
   def show
+    @user = User.find(params[:user_id])
     @budget = Budget.find(params[:id])
   end
 
   def new
-    @budget = Budget.new
+    @user = User.find(params[:user_id])
+    @budget = @user.budgets.new
   end
 
   def create
-    @budget = Budget.new(budget_params)
+    user = User.find(params[:user_id])
+    @budget = user.budgets.new(budget_params)
     if @budget.save
       flash[:success] = "#{@budget.name} added!"
-      redirect_to budgets_path
+      redirect_to user_budgets_path(user)
     else
       flash[:error] = "Budget wasn't created successfully"
+      @user = User.find(params[:user_id])
       render :new
     end
   end
 
   def edit
+    @user = User.find(params[:user_id])
     @budget = Budget.find(params[:id])
   end
 
   def update
+    user = User.find(params[:user_id])
     @budget = Budget.find(params[:id])
     @budget.update(budget_params)
     if @budget.save
       flash[:success] = 'Budget updated!'
-      redirect_to budgets_path
+      redirect_to user_budgets_path(user)
     else
       render :edit
     end

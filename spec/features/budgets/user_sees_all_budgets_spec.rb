@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe "User sees all budgets" do
   scenario "a user sees all the budgets" do
-    budget1 = Budget.create!(name: "Denver")
-    budget2 = Budget.create!(name: "SF")
+    user = User.create!(username: "Adam", password: "password")
+    budget1 = user.budgets.create!(name: "Denver")
+    budget2 = user.budgets.create!(name: "SF")
 
-    visit budgets_path
+    visit user_budgets_path(user)
 
     expect(page).to have_content(budget1.name)
     expect(page).to have_content(budget2.name)

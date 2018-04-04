@@ -4,14 +4,16 @@ describe Budget do
   describe "validations" do
     context "invalid attributes" do
       it "is invalid without a name" do
-        budget = Budget.new()
+        user = User.create!(username: "Adam", password: "password")
+        budget = user.budgets.new()
         expect(budget).to be_invalid
       end
     end
 
     context "valid attributes" do
       it "is valid with all attributes" do
-        budget = Budget.new(name: "Adam's")
+        user = User.create!(username: "Adam", password: "password")
+        budget = user.budgets.new(name: "Denver")
         expect(budget).to be_valid
       end
     end
