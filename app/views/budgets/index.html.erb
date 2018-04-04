@@ -6,7 +6,7 @@
         <div class="card-body">
           <h5 class="card-title"><%= budget.name %> budget</h5>
           <p class="card-text">There are <%= budget.categories.count %> categories in this budget: <%= budget.categories.map(&:title).join(", ") %></p>
-          <a href="/users/<%= @user.id%>/budgets/<%= budget.id %>" class="btn btn-primary">Go to budget</a>
+          <a href="/users/<%= @user.id%>/budgets/<%= budget.id %>" class="btn btn-primary">Go to <%= budget.name %> budget</a>
         </div>
       </div>
     </div>

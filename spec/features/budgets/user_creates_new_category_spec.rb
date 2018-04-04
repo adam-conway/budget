@@ -3,6 +3,8 @@ require 'rails_helper'
 describe "User creates a budget" do
   scenario "a user creates a new budget" do
     user = User.create!(username: "Adam", password: "password")
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    
     visit user_budgets_path(user)
     click_on("Create a new budget")
 

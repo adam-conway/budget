@@ -11,7 +11,7 @@ describe 'Authentication' do
     username = 'Student'
     visit '/'
 
-    click_on 'Sign up to be a User'
+    click_on 'Sign Up'
 
     expect(current_path).to eq(new_user_path)
 
@@ -27,40 +27,40 @@ describe 'Authentication' do
 
     visit '/'
 
-    click_on 'I already have an account'
+    click_on 'Log In'
 
     expect(current_path).to eq(login_path)
 
     fill_in 'username', with: user.username
     fill_in 'password', with: user.password
 
-    click_on 'Log In'
+    click_on 'Log Into Account'
 
-    expect(current_path).to eq(user_path(user))
+    expect(current_path).to eq(root_path)
 
-    expect(page).to have_content("Welcome, #{user.username}")
+    expect(page).to have_content("Welcome back #{user.username}")
     visit '/'
-    expect(page).to have_content('Log out')
+    expect(page).to have_content('Log Out')
   end
   scenario 'allows a user to log out' do
     user = User.create(username: 'funbucket13', password: 'test')
 
     visit '/'
 
-    click_on 'I already have an account'
+    click_on 'Log In'
 
     expect(current_path).to eq(login_path)
 
     fill_in 'username', with: user.username
     fill_in 'password', with: user.password
 
-    click_on 'Log In'
+    click_on 'Log Into Account'
 
     visit '/'
-    expect(page).to have_content('Log out')
-    click_on 'Log out'
+    expect(page).to have_content('Log Out')
+    click_on 'Log Out'
 
     visit '/'
-    expect(page).to_not have_content('Log out')
+    expect(page).to_not have_content('Log Out')
   end
 end
