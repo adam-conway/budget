@@ -1,100 +1,102 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Date</th>
-      <th scope="col">Category</th>
-      <th scope="col">Payee</th>
-      <th scope="col">Notes</th>
-      <th scope="col">Inflow</th>
-      <th scope="col">Outflow</th>
-      <th scope="col">Make changes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <%= form_for [@user, @budget, @charge], :html => {:class => "form-inline center"} do |f| %>
-      <th scope="row">
-        <div class="form-group">
-          <div class="col-md-12">
-            <%= f.date_field :date, class: "form-control" %>
+<% if current_user.id == @user.id || current_admin? %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Category</th>
+        <th scope="col">Payee</th>
+        <th scope="col">Notes</th>
+        <th scope="col">Inflow</th>
+        <th scope="col">Outflow</th>
+        <th scope="col">Make changes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <%= form_for [@user, @budget, @charge], :html => {:class => "form-inline center"} do |f| %>
+        <th scope="row">
+          <div class="form-group">
+            <div class="col-md-12">
+              <%= f.date_field :date, class: "form-control" %>
+            </div>
           </div>
-        </div>
-      </th>
+        </th>
 
-      <td>
-        <div class="form-group">
-          <%= f.collection_select :id, @categories, :id, :title %></br>
-          <%= link_to 'I need to split this charge', new_user_budget_charge_path(@user, @budget) %>
-        </div>
-      </td>
-
-      <td>
-        <div class="form-group">
-          <div class="col-md-8">
-            <%= f.text_field :payee, class: "form-control" %>
+        <td>
+          <div class="form-group">
+            <%= f.collection_select :id, @categories, :id, :title %></br>
+            <%= link_to 'I need to split this charge', new_user_budget_charge_path(@user, @budget) %>
           </div>
-        </div>
-      </td>
+        </td>
 
-      <td>
-        <div class="form-group">
-          <div class="col-md-8">
-            <%= f.text_field :notes, class: "form-control" %>
+        <td>
+          <div class="form-group">
+            <div class="col-md-8">
+              <%= f.text_field :payee, class: "form-control" %>
+            </div>
           </div>
-        </div>
-      </td>
+        </td>
 
-      <td>
-        <div class="form-group">
-          <div class="col-md-8">
-            <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
+        <td>
+          <div class="form-group">
+            <div class="col-md-8">
+              <%= f.text_field :notes, class: "form-control" %>
+            </div>
           </div>
-        </div>
-      </td>
+        </td>
 
-      <td>
-        <div class="form-group">
-          <div class="col-md-8">
-            <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
+        <td>
+          <div class="form-group">
+            <div class="col-md-8">
+              <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
+            </div>
           </div>
-        </div>
-      </td>
+        </td>
+
+        <td>
+          <div class="form-group">
+            <div class="col-md-8">
+              <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
+            </div>
+          </div>
+        </td>
 
 
-      <td>
-        <%= f.submit class: "btn btn-default btn-primary" %>
-      </td>
-      <% end %>
-    </tr>
-    <% @charges.each do |charge| %>
-    <tr class="charges">
-      <td scope="row">
-        <%= charge.date %>
-      </td>
-      <td>
-        <%= charge.categories.map(&:title).join(", ") %>
-      </td>
-      <td>
-        <%= charge.payee %>
-      </td>
-      <td>
-        <%= charge.notes %>
-      </td>
-      <td>
-        <%= number_to_currency(charge.inflow) %>
-      </td>
-      <td>
-        <% if charge.outflow %>
-          <%= number_to_currency(charge.outflow * -1) %>
-        <% else %>
-          <%= charge.outflow %>
+        <td>
+          <%= f.submit class: "btn btn-default btn-primary" %>
+        </td>
         <% end %>
-      </td>
-      <td>
-        <%= link_to "Edit", edit_user_budget_charge_path(@user, @budget, charge) %>
-        <%= link_to "Delete", user_budget_charge_path(@user, @budget, charge), method: "delete" %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tr>
+      <% @charges.each do |charge| %>
+      <tr class="charges">
+        <td scope="row">
+          <%= charge.date %>
+        </td>
+        <td>
+          <%= charge.categories.map(&:title).join(", ") %>
+        </td>
+        <td>
+          <%= charge.payee %>
+        </td>
+        <td>
+          <%= charge.notes %>
+        </td>
+        <td>
+          <%= number_to_currency(charge.inflow) %>
+        </td>
+        <td>
+          <% if charge.outflow %>
+            <%= number_to_currency(charge.outflow * -1) %>
+          <% else %>
+            <%= charge.outflow %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to "Edit", edit_user_budget_charge_path(@user, @budget, charge) %>
+          <%= link_to "Delete", user_budget_charge_path(@user, @budget, charge), method: "delete" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

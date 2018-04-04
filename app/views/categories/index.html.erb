@@ -1,4 +1,6 @@
-<% @categories.each do |category| %>
-  <%= category.title %>
-  <%= number_to_currency(category.current_balance) %>
+<% if current_user.id == @user.id || current_admin? %>
+  <% @categories.each do |category| %>
+    <%= category.title %>
+    <%= number_to_currency(category.current_balance) %>
+  <% end %>
 <% end %>

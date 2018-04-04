@@ -1,10 +1,12 @@
-<h1><%= @budget.name %></h1>
+<% if current_user.id == @budget.user.id || current_admin? %>
+  <h1><%= @budget.name %></h1>
 
-<% @budget.categories.each do |category| %>
-  <%= category.title %>
-  <%= number_to_currency(category.current_balance) %>
-<% end %></br>
+  <% @budget.categories.each do |category| %>
+    <%= category.title %>
+    <%= number_to_currency(category.current_balance) %>
+  <% end %></br>
 
-<%= link_to "Create a new category", new_user_budget_category_path(@user, @budget) %>
-<%= link_to "Edit Budget", edit_user_budget_path(@user, @budget) %>
-<%= link_to "Charges", user_budget_charges_path(@user, @budget) %>
+  <%= link_to "Create a new category", new_user_budget_category_path(@user, @budget) %>
+  <%= link_to "Edit Budget", edit_user_budget_path(@user, @budget) %>
+  <%= link_to "Charges", user_budget_charges_path(@user, @budget) %>
+<% end %>
