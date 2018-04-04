@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show]
   # resources :charges
 
+  namespace :admin do
+    resources :budgets, only: [:index]
+  end
+
   resources :budgets, only: [:index, :show, :new, :create, :edit, :update] do
     resources :charges
     resources :categories, only: [:new, :create, :index]
