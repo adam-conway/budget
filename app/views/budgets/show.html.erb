@@ -5,6 +5,6 @@
   <%= number_to_currency(category.current_balance) %>
 <% end %></br>
 
-<%= link_to "Create a new category", new_budget_category_path(@budget) %>
-<%= link_to "Edit Budget", edit_budget_path(@budget) %>
-<%= link_to "Charges", budget_charges_path(@budget) %>
+<%= link_to "Create a new category", new_user_budget_category_path(@user, @budget) %>
+<%= link_to "Edit Budget", edit_user_budget_path(@user, @budget) %>
+<%= link_to "Charges", user_budget_charges_path(@user, @budget) %>

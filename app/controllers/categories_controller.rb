@@ -4,16 +4,18 @@ class CategoriesController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
     @budget = Budget.find(params[:budget_id])
     @category = Category.new
   end
 
   def create
+    user = User.find(params[:user_id])
     budget = Budget.find(params[:budget_id])
     @category = budget.categories.new(category_params)
     if @category.save
       flash[:success] = "Category added!"
-      redirect_to budget_path(budget)
+      redirect_to user_budget_path(user, budget)
     else
       flash[:error] = "Category wasn't created successfully"
       render :new

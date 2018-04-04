@@ -3,4 +3,5 @@ class Budget < ApplicationRecord
 
   has_many :categories, dependent: :destroy
   has_many :charges, dependent: :destroy
+  belongs_to :user
 end

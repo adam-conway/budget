@@ -4,4 +4,6 @@ class User < ApplicationRecord
                     uniqueness: true
 
   enum role: %w(default admin)
+
+  has_many :budgets
 end

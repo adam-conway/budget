@@ -10,21 +10,29 @@ Budget.destroy_all
 Charge.destroy_all
 Category.destroy_all
 ChargeCategory.destroy_all
+User.destroy_all
 
-BUDGETS = ["Denver", "SF", "Adam"]
+BUDGETS = ["Denver", "SF", "Adam", "Random", "Thing", "Help"]
 INFLOWS = (0..100)
 OUTFLOWS = (0..100)
 PAYEE = ["Adam", "Mariah", "Evan"]
 DATE = ['2018-04-01', '2018-04-02', '2018-04-03']
 NOTES = ["This was a great purchase", "This was a bad purchase", "This was an ok purchase"]
 CATEGORIES = ["Rent", "Food", "Car Payment", "Car Insurance", "Phone"]
+USERS = ["Adam", "John", "Jeff", "Kelly", "Martha"]
+
+User.create!(username: "username", password: "password", role: 1)
+
+USERS.each do |user|
+  User.create!(username: user, password: 'password')
+end
 
 BUDGETS.each do |budget|
-  Budget.create!(name: budget)
+  User.all.sample.budgets.create!(name: budget)
 end
 
 CATEGORIES.each do |category|
-  Category.create!(title: category, current_balance: 0, budget_id: rand(1..Budget.all.count))
+  Budget.all.sample.categories.create!(title: category, current_balance: 0)
 end
 
 10.times do |num|

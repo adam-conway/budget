@@ -8,15 +8,17 @@ Rails.application.routes.draw do
 
   post '/charge_categories', to: 'chargecategories#create'
 
-  resources :users, only: [:new, :create, :show]
+  # resources :users, only: [:new, :create, :show]
   # resources :charges
 
   namespace :admin do
     resources :budgets, only: [:index]
   end
 
-  resources :budgets, only: [:index, :show, :new, :create, :edit, :update] do
-    resources :charges
-    resources :categories, only: [:new, :create, :index]
+  resources :users, only: [:new, :create, :show] do
+    resources :budgets, only: [:index, :show, :new, :create, :edit, :update] do
+      resources :charges
+      resources :categories, only: [:new, :create, :index]
+    end
   end
 end
