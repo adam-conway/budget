@@ -20,6 +20,7 @@ class ChargesController < ApplicationController
     budget = Budget.find(params[:budget_id])
     @charge = budget.charges.new(charge_params)
     if @charge.save
+      binding.pry
       if params[:charge_categories]
         build_charge_categories(params[:charge_categories], @charge)
       else
