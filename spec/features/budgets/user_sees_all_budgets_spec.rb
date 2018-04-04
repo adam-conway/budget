@@ -5,6 +5,7 @@ describe "User sees all budgets" do
     user = User.create!(username: "Adam", password: "password")
     budget1 = user.budgets.create!(name: "Denver")
     budget2 = user.budgets.create!(name: "SF")
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit user_budgets_path(user)
 

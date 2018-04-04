@@ -4,6 +4,7 @@ describe "User sees one budget" do
   scenario "a user sees a budget" do
     user = User.create!(username: "Adam", password: "password")
     budget = user.budgets.create!(name: "Denver")
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit user_budget_path(user, budget)
 
@@ -16,6 +17,7 @@ describe "User sees one budget" do
     category1 = budget.categories.create!(title: 'Food', current_balance: 0)
     category2 = budget.categories.create!(title: 'Rent', current_balance: 0)
     category3 = budget.categories.create!(title: 'Test', current_balance: 0)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
     visit user_budget_path(user, budget)
 
