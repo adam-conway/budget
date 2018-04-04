@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403194618) do
+ActiveRecord::Schema.define(version: 20180404161959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,12 @@ ActiveRecord::Schema.define(version: 20180403194618) do
     t.datetime "updated_at", null: false
     t.bigint "budget_id"
     t.index ["budget_id"], name: "index_charges_on_budget_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
+    t.integer "role", default: 0
   end
 
   add_foreign_key "categories", "budgets"
