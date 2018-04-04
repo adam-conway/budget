@@ -1,0 +1,26 @@
+<h1>All Users</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">User</th>
+      <th scope="col"># of budgets</th>
+      <th scope="col">Impersonate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <tr class="charges">
+      <td scope="row">
+        <%= user.username %>
+      </td>
+      <td>
+        <%= user.budgets.count %>
+      </td>
+      <td>
+        Impersonate button
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

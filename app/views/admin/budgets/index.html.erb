@@ -1,5 +1,14 @@
 <h1>All Budgets</h1>
 
-<% @budgets.each do |budget| %>
-  <%= budget.name %>
-<% end %>
+<div class="row">
+  <% @budgets.each do |budget| %>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><%= budget.name %> budget</h5>
+        <p class="card-text">There are <%= budget.categories.count %> categories in this budget: <%= budget.categories.map(&:title).join(", ") %></p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
