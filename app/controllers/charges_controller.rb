@@ -16,22 +16,22 @@ class ChargesController < ApplicationController
   end
 
   def create
-    user = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
     budget = Budget.find(params[:budget_id])
     @charge = budget.charges.new(charge_params)
     if @charge.save
       if params[:charge_categories]
         build_charge_categories(params[:charge_categories], @charge)
       else
-        ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id])
+        ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id], inflow: params[:charge][:inflow], outflow: params[:charge][:outflow])
       end
       flash[:success] = 'Charge added!'
-      redirect_to user_budget_charges_path(user, budget)
+      redirect_to user_budget_charges_path(@user, budget)
     else
       flash[:error] = "Charge wasn't created successfully"
-      @categories = Category.all
       @budget = Budget.find(params[:budget_id])
-      @charges = Charge.all
+      @categories = @budget.categories
+      @charges = @budget.charges.order_by_date
       render :index
     end
   end

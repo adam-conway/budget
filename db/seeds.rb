@@ -31,21 +31,29 @@ BUDGETS.each do |budget|
   User.all.sample.budgets.create!(name: budget)
 end
 
+budget = Budget.all.sample
+
 CATEGORIES.each do |category|
-  Budget.all.sample.categories.create!(title: category, current_balance: 0)
+  budget.categories.create!(title: category, current_balance: 0)
 end
 
 10.times do |num|
-  Budget.all.sample.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
+  charge = budget.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
+  2.times do
+    ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: charge.id, outflow: rand(100), inflow: rand(100))
+  end
   puts "Positive charge #{num} created"
 end
 
 10.times do |num|
-  Budget.all.sample.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
+  charge = budget.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
+  2.times do
+    ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: charge.id, outflow: rand(100), inflow: rand(100))
+  end
   puts "Negative charge #{num} created"
 end
 
-30.times do |num|
-  ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: Charge.all.sample.id, outflow: rand(100), inflow: rand(100))
-  puts "Charge category #{num} created"
-end
+# 30.times do |num|
+#   ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: Charge.all.sample.id, outflow: rand(100), inflow: rand(100))
+#   puts "Charge category #{num} created"
+# end
