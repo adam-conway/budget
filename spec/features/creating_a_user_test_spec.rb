@@ -11,7 +11,7 @@ describe 'Authentication' do
     username = 'Student'
     visit '/'
 
-    click_on 'Sign up to be a User'
+    click_on 'Sign Up to Be a User'
 
     expect(current_path).to eq(new_user_path)
 
