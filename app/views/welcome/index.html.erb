@@ -1,8 +1,6 @@
-<h1>Welcome to SpendingPlan!</h1>
 
-<% if current_user %>
-  <%= link_to 'Log out', logout_path %>
+<% if current_user  %>
+  <h1>Welcome back <%= current_user.username %>!</h1>
 <% else %>
-  <%= link_to 'Sign up to be a User', new_user_path %>
-  <%= link_to 'I already have an account', login_path %>
+  <h1>Welcome to SpendingPlan!</h1>
 <% end %>

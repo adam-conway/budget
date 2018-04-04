@@ -25,7 +25,7 @@ class ChargesController < ApplicationController
       else
         ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id])
       end
-      flash[:success] = "Charge added!"
+      flash[:success] = 'Charge added!'
       redirect_to user_budget_charges_path(user, budget)
     else
       flash[:error] = "Charge wasn't created successfully"
