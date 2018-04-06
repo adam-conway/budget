@@ -67,7 +67,7 @@ class ChargesController < ApplicationController
   end
 
   private
-  
+
   def build_charge_categories (params, charge)
     params.each_with_index do |category, index|
       next if category[:inflow] == "" && category[:outflow] == ""
@@ -75,8 +75,8 @@ class ChargesController < ApplicationController
         category_id: index + 1,
         inflow: category[:inflow].to_f,
         outflow: category[:outflow].to_f)
-      end
     end
+  end
 
   def charge_params
     params.require(:charge).permit(:date, :payee, :notes, :inflow, :outflow)
