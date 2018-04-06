@@ -4,3 +4,13 @@
     <%= number_to_currency(category.current_balance) %>
   <% end %>
 <% end %>
+<% if current_user.id == @user.id || current_admin? %>
+  <% @categories.each do |category| %>
+    <div class="card">
+      <h5 class="card-header"><%= category.title %></h5>
+      <div class="card-body">
+        <h5 class="card-title"><%= number_to_currency(category.current_balance) %> Available</h5>
+      </div>
+    </div>
+  <% end %>
+<% end %>
