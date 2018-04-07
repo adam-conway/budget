@@ -62,8 +62,12 @@
           <%= charge.date %>
         </td>
         <td>
-          <% charge.charge_category_adjustments.each do |cca| %>
-            <%= cca.category.title %> (<%= number_to_currency(cca.adjustment.amount)%>), 
+          <% if charge.categories.count == 1 %>
+            <%= charge.categories.first.title %>
+          <% else %>
+            <% charge.charge_category_adjustments.each do |cca| %>
+              <%= cca.category.title %> (<%= number_to_currency(cca.adjustment.amount)%>)</br>
+            <% end %>
           <% end %>
         </td>
         <td>
