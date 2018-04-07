@@ -1,15 +1,12 @@
 class Category < ApplicationRecord
-  validates :title, :current_balance, presence: true
+  validates :title, presence: true
 
-  has_many :charge_categories, dependent: :destroy
-  has_many :charges, through: :charge_categories
+  has_many :charge_category_adjustments, dependent: :destroy
+  has_many :charges, through: :charge_category_adjustments
+  has_many :adjustments, through: :charge_category_adjustments
   belongs_to :budget
 
-  def total_outflows
-    self.charge_categories.sum(:outflow)
-  end
-
-  def total_inflows
-    self.charge_categories.sum(:inflow)
+  def balance
+    self.adjustments.sum(:amount)
   end
 end

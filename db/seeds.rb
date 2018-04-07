@@ -9,13 +9,13 @@
 Budget.destroy_all
 Charge.destroy_all
 Category.destroy_all
-ChargeCategory.destroy_all
+Adjustment.destroy_all
+ChargeCategoryAdjustment.destroy_all
 User.destroy_all
 
 BUDGETS = ["Denver", "SF", "Adam", "Random", "Thing", "Help"]
-INFLOWS = (0..100)
-OUTFLOWS = (0..100)
-PAYEE = ["Adam", "Mariah", "Evan"]
+# CHARGES = (-100.00..100.00)
+PAYEE = ["Adam", "Mariah", "Evan", "Target", "Walmart"]
 DATE = ['2018-04-01', '2018-04-02', '2018-04-03']
 NOTES = ["This was a great purchase", "This was a bad purchase", "This was an ok purchase"]
 CATEGORIES = ["Rent", "Food", "Car Payment", "Car Insurance", "Phone"]
@@ -34,26 +34,14 @@ end
 budget = Budget.all.sample
 
 CATEGORIES.each do |category|
-  budget.categories.create!(title: category, current_balance: 0)
+  budget.categories.create!(title: category)
 end
 
-10.times do |num|
-  charge = budget.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, inflow: rand(100))
+50.times do |num|
+  charge = budget.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, amount: rand(-100.00..100.00))
   2.times do
-    ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: charge.id, inflow: charge.inflow)
+    adjustment = Adjustment.create!(amount: (charge.amount)/2)
+    ChargeCategoryAdjustment.create!(category_id: Category.all.sample.id, charge_id: charge.id, adjustment_id: adjustment.id)
   end
-  puts "Positive charge #{num} created"
+  puts "Charge #{num} created"
 end
-
-10.times do |num|
-  charge = budget.charges.create!(date: DATE.sample, payee: PAYEE.sample, notes: NOTES.sample, outflow: rand(100))
-  2.times do
-    ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: charge.id, outflow: rand(100), inflow: rand(100))
-  end
-  puts "Negative charge #{num} created"
-end
-
-# 30.times do |num|
-#   ChargeCategory.create!(category_id: Category.all.sample.id, charge_id: Charge.all.sample.id, outflow: rand(100), inflow: rand(100))
-#   puts "Charge category #{num} created"
-# end

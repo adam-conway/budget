@@ -6,8 +6,7 @@
         <th scope="col">Category</th>
         <th scope="col">Payee</th>
         <th scope="col">Notes</th>
-        <th scope="col">Inflow</th>
-        <th scope="col">Outflow</th>
+        <th scope="col">Amount</th>
         <th scope="col">Make changes</th>
       </tr>
     </thead>
@@ -17,7 +16,7 @@
         <th scope="row">
           <div class="form-group">
             <div class="col-md-12">
-              <%= f.date_field :date, class: "form-control" %>
+              <%= f.date_field :date, class: "form-control", :value => Time.now.strftime('%Y-%m-%d') %>
             </div>
           </div>
         </th>
@@ -25,7 +24,7 @@
         <td>
           <div class="form-group">
             <%= f.collection_select :id, @categories, :id, :title %></br>
-            <%= link_to 'I need to split this charge', new_user_budget_charge_path(@user, @budget) %>
+            <!-- <%= link_to 'I need to split this charge', new_user_budget_charge_path(@user, @budget) %> -->
           </div>
         </td>
 
@@ -48,20 +47,10 @@
         <td>
           <div class="form-group">
             <div class="col-md-8">
-              <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
+              <%= f.number_field :amount, step: 0.01, class: "form-control" %>
             </div>
           </div>
         </td>
-
-        <td>
-          <div class="form-group">
-            <div class="col-md-8">
-              <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
-            </div>
-          </div>
-        </td>
-
-
         <td>
           <%= f.submit class: "btn btn-default btn-primary" %>
         </td>
@@ -73,7 +62,13 @@
           <%= charge.date %>
         </td>
         <td>
-          <%= charge.categories.map(&:title).join(", ") %>
+          <% if charge.categories.count == 1 %>
+            <%= charge.categories.first.title %>
+          <% else %>
+            <% charge.charge_category_adjustments.each do |cca| %>
+              <%= cca.category.title %> (<%= number_to_currency(cca.adjustment.amount)%>)</br>
+            <% end %>
+          <% end %>
         </td>
         <td>
           <%= charge.payee %>
@@ -82,14 +77,7 @@
           <%= charge.notes %>
         </td>
         <td>
-          <%= number_to_currency(charge.inflow) %>
-        </td>
-        <td>
-          <% if charge.outflow %>
-            <%= number_to_currency(charge.outflow * -1) %>
-          <% else %>
-            <%= charge.outflow %>
-          <% end %>
+          <%= number_to_currency(charge.amount) %>
         </td>
         <td>
           <%= link_to "Edit", edit_user_budget_charge_path(@user, @budget, charge) %>
