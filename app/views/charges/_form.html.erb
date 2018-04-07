@@ -6,8 +6,7 @@
         <th scope="col">Category</th>
         <th scope="col">Payee</th>
         <th scope="col">Notes</th>
-        <th scope="col">Inflow</th>
-        <th scope="col">Outflow</th>
+        <th scope="col">Amount</th>
       </tr>
     </thead>
     <tbody>
@@ -22,9 +21,6 @@
         </th>
 
         <td>
-          <!-- <div class="form-group">
-            <%= f.collection_select :id, @categories, :id, :title %></br>
-          </div> -->
         </td>
 
         <td>
@@ -46,15 +42,7 @@
         <td>
           <div class="form-group">
             <div class="col-md-8">
-              <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
-            </div>
-          </div>
-        </td>
-
-        <td>
-          <div class="form-group">
-            <div class="col-md-8">
-              <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
+              <%= f.number_field :amount, step: 0.01, class: "form-control" %>
             </div>
           </div>
         </td>
@@ -62,7 +50,7 @@
 
     <% @categories.each do |category| %>
       <tr>
-        <%= fields_for 'charge_categories[]', @charge_category do |cc_form| %>
+        <%= fields_for 'charge_categorie_adjustments[]', @charge_category_adjustment do |cc_form| %>
         <th scope="row">
 
         </th>
@@ -80,15 +68,7 @@
         <td>
           <div class="form-group">
             <div class="col-md-8">
-              <%= cc_form.number_field :inflow, step: 0.01, class: "form-control" %>
-            </div>
-          </div>
-        </td>
-
-        <td>
-          <div class="form-group">
-            <div class="col-md-8">
-              <%= cc_form.number_field :outflow, step: 0.01, class: "form-control" %>
+              <%= cc_form.number_field :amount, step: 0.01, class: "form-control" %>
             </div>
           </div>
         </td>

@@ -11,7 +11,7 @@ class ChargesController < ApplicationController
     @user = User.find(params[:user_id])
     @budget = Budget.find(params[:budget_id])
     @charge = Charge.new
-    @charge_category = ChargeCategory.new
+    @charge_category_adjustment = ChargeCategoryAdjustment.new
     @categories = @budget.categories
   end
 

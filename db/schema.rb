@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180404170750) do
+ActiveRecord::Schema.define(version: 20180407181519) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "adjustments", force: :cascade do |t|
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "budgets", force: :cascade do |t|
     t.string "name"
@@ -25,33 +31,31 @@ ActiveRecord::Schema.define(version: 20180404170750) do
 
   create_table "categories", force: :cascade do |t|
     t.string "title"
-    t.float "current_balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "budget_id"
     t.index ["budget_id"], name: "index_categories_on_budget_id"
   end
 
-  create_table "charge_categories", force: :cascade do |t|
+  create_table "charge_category_adjustments", force: :cascade do |t|
     t.bigint "category_id"
     t.bigint "charge_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "inflow"
-    t.float "outflow"
-    t.index ["category_id"], name: "index_charge_categories_on_category_id"
-    t.index ["charge_id"], name: "index_charge_categories_on_charge_id"
+    t.bigint "adjustment_id"
+    t.index ["adjustment_id"], name: "index_charge_category_adjustments_on_adjustment_id"
+    t.index ["category_id"], name: "index_charge_category_adjustments_on_category_id"
+    t.index ["charge_id"], name: "index_charge_category_adjustments_on_charge_id"
   end
 
   create_table "charges", force: :cascade do |t|
     t.date "date"
     t.string "payee"
     t.string "notes"
-    t.float "outflow"
-    t.float "inflow"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "budget_id"
+    t.float "amount"
     t.index ["budget_id"], name: "index_charges_on_budget_id"
   end
 
@@ -63,7 +67,8 @@ ActiveRecord::Schema.define(version: 20180404170750) do
 
   add_foreign_key "budgets", "users"
   add_foreign_key "categories", "budgets"
-  add_foreign_key "charge_categories", "categories"
-  add_foreign_key "charge_categories", "charges"
+  add_foreign_key "charge_category_adjustments", "adjustments"
+  add_foreign_key "charge_category_adjustments", "categories"
+  add_foreign_key "charge_category_adjustments", "charges"
   add_foreign_key "charges", "budgets"
 end
