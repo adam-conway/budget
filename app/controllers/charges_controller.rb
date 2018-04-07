@@ -23,7 +23,8 @@ class ChargesController < ApplicationController
       if params[:charge_categories]
         build_charge_categories(params[:charge_categories], @charge)
       else
-        ChargeCategory.create(charge_id: @charge.id, category_id: params[:charge][:id], inflow: params[:charge][:inflow], outflow: params[:charge][:outflow])
+        adjustment = Adjustment.create!(amount: @charge.amount)
+        ChargeCategoryAdjustment.create!(charge_id: @charge.id, category_id: params[:charge][:id], adjustment_id: adjustment.id)
       end
       flash[:success] = 'Charge added!'
       redirect_to user_budget_charges_path(@user, budget)
@@ -79,6 +80,6 @@ class ChargesController < ApplicationController
   end
 
   def charge_params
-    params.require(:charge).permit(:date, :payee, :notes, :inflow, :outflow)
+    params.require(:charge).permit(:date, :payee, :notes, :amount)
   end
 end
