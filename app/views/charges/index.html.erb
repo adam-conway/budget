@@ -16,7 +16,7 @@
         <th scope="row">
           <div class="form-group">
             <div class="col-md-12">
-              <%= f.date_field :date, class: "form-control" %>
+              <%= f.date_field :date, class: "form-control", :value => Time.now.strftime('%Y-%m-%d') %>
             </div>
           </div>
         </th>
@@ -62,7 +62,9 @@
           <%= charge.date %>
         </td>
         <td>
-          <%= charge.categories.map(&:title).join(", ") %>
+          <% charge.charge_category_adjustments.each do |cca| %>
+            <%= cca.category.title %> (<%= number_to_currency(cca.adjustment.amount)%>), 
+          <% end %>
         </td>
         <td>
           <%= charge.payee %>
