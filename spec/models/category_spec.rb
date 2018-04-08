@@ -6,14 +6,7 @@ describe Category do
       it "is invalid without a title" do
         user = User.create!(username: "Adam", password: "password")
         budget = user.budgets.new(name: "Denver")
-        category = Category.new(current_balance: 0, budget_id: budget.id)
-        expect(category).to be_invalid
-      end
-
-      it "is invalid without a current balance" do
-        user = User.create!(username: "Adam", password: "password")
-        budget = user.budgets.new(name: "Denver")
-        category = Category.new(title: "Food", budget_id: budget.id)
+        category = Category.new(budget_id: budget.id)
         expect(category).to be_invalid
       end
     end
@@ -32,13 +25,13 @@ describe Category do
     it "has many charges" do
       user = User.create!(username: "Adam", password: "password")
       budget = user.budgets.create!(name: "Denver")
-      category = Category.create!(title: "Rent", current_balance: 0, budget_id: budget.id)
-      charge1 = budget.charges.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
-      charge2 = budget.charges.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", outflow: 50)
-      charge3 = budget.charges.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", outflow: 50)
-      ChargeCategory.create!(charge_id: charge1.id, category_id: category.id)
-      ChargeCategory.create!(charge_id: charge2.id, category_id: category.id)
-      ChargeCategory.create!(charge_id: charge3.id, category_id: category.id)
+      category = budget.categories.create!(title: "Rent", budget_id: budget.id)
+      charge1 = budget.charges.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", amount: 50)
+      charge2 = budget.charges.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", amount: 50)
+      charge3 = budget.charges.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", amount: 50)
+      ChargeCategoryAdjustment.create!(charge_id: charge1.id, category_id: category.id)
+      ChargeCategoryAdjustment.create!(charge_id: charge2.id, category_id: category.id)
+      ChargeCategoryAdjustment.create!(charge_id: charge3.id, category_id: category.id)
 
       expect(category).to respond_to(:charges)
     end
