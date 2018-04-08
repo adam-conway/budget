@@ -15,7 +15,7 @@ describe Category do
       it "is valid with all attributes" do
         user = User.create!(username: "Adam", password: "password")
         budget = user.budgets.create!(name: "Denver")
-        category = budget.categories.new(title: "Rent", current_balance: 0, budget_id: budget.id)
+        category = budget.categories.new(title: "Rent", budget_id: budget.id)
         expect(category).to be_valid
       end
     end
@@ -29,40 +29,29 @@ describe Category do
       charge1 = budget.charges.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", amount: 50)
       charge2 = budget.charges.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", amount: 50)
       charge3 = budget.charges.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", amount: 50)
-      ChargeCategoryAdjustment.create!(charge_id: charge1.id, category_id: category.id)
-      ChargeCategoryAdjustment.create!(charge_id: charge2.id, category_id: category.id)
-      ChargeCategoryAdjustment.create!(charge_id: charge3.id, category_id: category.id)
 
       expect(category).to respond_to(:charges)
     end
   end
 
   describe "activerecord" do
-    it "sums up all outflow totals associated with category" do
-      user = User.create!(username: "Adam", password: "password")
-      budget = user.budgets.create!(name: "Denver")
-      category = budget.categories.create!(title: "Rent", current_balance: 0)
-      charge1 = budget.charges.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", outflow: 50)
-      charge2 = budget.charges.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", outflow: 50)
-      charge3 = budget.charges.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", outflow: 50)
-      ChargeCategory.create!(charge_id: charge1.id, category_id: category.id, outflow: 50)
-      ChargeCategory.create!(charge_id: charge2.id, category_id: category.id, outflow: 50)
-      ChargeCategory.create!(charge_id: charge3.id, category_id: category.id, outflow: 50)
-
-      expect(category.total_outflows).to eq(150)
-    end
     it "sums up all inflow totals associated with category" do
       user = User.create!(username: "Adam", password: "password")
       budget = user.budgets.create!(name: "Denver")
-      category = budget.categories.create!(title: "Rent", current_balance: 0)
-      charge1 = budget.charges.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", inflow: 50)
-      charge2 = budget.charges.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", inflow: 50)
-      charge3 = budget.charges.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", inflow: 50)
-      ChargeCategory.create!(charge_id: charge1.id, category_id: category.id, inflow: 50)
-      ChargeCategory.create!(charge_id: charge2.id, category_id: category.id, inflow: 50)
-      ChargeCategory.create!(charge_id: charge3.id, category_id: category.id, inflow: 50)
+      category = budget.categories.create!(title: "Rent")
+      charge1 = budget.charges.create!(date: '2018-04-01', payee: "Adam", notes: "This was a great purchase", amount: 50)
+      charge2 = budget.charges.create!(date: '2018-04-01', payee: "Help", notes: "This was a great purchase", amount: 50)
+      charge3 = budget.charges.create!(date: '2018-04-01', payee: "Jimmy", notes: "This was a great purchase", amount: 50)
+      adjustment1 = Adjustment.create!(amount: 50)
+      adjustment2 = Adjustment.create!(amount: 50)
+      adjustment3 = Adjustment.create!(amount: 50)
+      adjustment4 = Adjustment.create!(amount: -50)
+      ChargeCategoryAdjustment.create!(charge_id: charge1.id, category_id: category.id, adjustment_id: adjustment1.id)
+      ChargeCategoryAdjustment.create!(charge_id: charge2.id, category_id: category.id, adjustment_id: adjustment2.id)
+      ChargeCategoryAdjustment.create!(charge_id: charge3.id, category_id: category.id, adjustment_id: adjustment3.id)
+      ChargeCategoryAdjustment.create!(charge_id: charge3.id, category_id: category.id, adjustment_id: adjustment4.id)
 
-      expect(category.total_inflows).to eq(150)
+      expect(category.balance).to eq(100)
     end
   end
 end
