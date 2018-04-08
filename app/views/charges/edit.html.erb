@@ -23,16 +23,9 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :inflow, "Inflow", class: "col-md-4 control-label" %>
+      <%= f.label :amount, "Amount", class: "col-md-4 control-label" %>
       <div class="col-md-8">
-        <%= f.number_field :inflow, step: 0.01, class: "form-control" %>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :outflow, "Outflow", class: "col-md-4 control-label" %>
-      <div class="col-md-8">
-        <%= f.number_field :outflow, step: 0.01, class: "form-control" %>
+        <%= f.number_field :amount, step: 0.01, class: "form-control" %>
       </div>
     </div>
 

@@ -22,4 +22,6 @@ Rails.application.routes.draw do
       resources :categories, only: [:new, :create, :index]
     end
   end
+
+  resources :adjustments, only: [:create]
 end

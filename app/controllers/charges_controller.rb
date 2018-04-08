@@ -11,7 +11,8 @@ class ChargesController < ApplicationController
     @user = User.find(params[:user_id])
     @budget = Budget.find(params[:budget_id])
     @charge = Charge.new
-    @charge_category_adjustment = ChargeCategoryAdjustment.new
+    # @charge_category_adjustment = ChargeCategoryAdjustment.new
+    @adjustment = Adjustment.new
     @categories = @budget.categories
   end
 
@@ -20,8 +21,8 @@ class ChargesController < ApplicationController
     budget = Budget.find(params[:budget_id])
     @charge = budget.charges.new(charge_params)
     if @charge.save
-      if params[:charge_categories]
-        build_charge_categories(params[:charge_categories], @charge)
+      if params[:adjustments]
+        build_adjustments(params[:adjustments], @charge)
       else
         adjustment = Adjustment.create!(amount: @charge.amount)
         ChargeCategoryAdjustment.create!(charge_id: @charge.id, category_id: params[:charge][:id], adjustment_id: adjustment.id)
@@ -69,13 +70,13 @@ class ChargesController < ApplicationController
 
   private
 
-  def build_charge_categories (params, charge)
-    params.each_with_index do |category, index|
-      next if category[:inflow] == "" && category[:outflow] == ""
-      ChargeCategory.create(charge_id: charge.id,
-        category_id: index + 1,
-        inflow: category[:inflow].to_f,
-        outflow: category[:outflow].to_f)
+  def build_adjustments(params, charge)
+    params.each do |category|
+      next if params[category][:amount] == ''
+      adjustment = Adjustment.create(amount: params[category][:amount].to_f)
+      ChargeCategoryAdjustment.create(charge_id: charge.id,
+                                      category_id: category.to_i,
+                                      adjustment_id: adjustment.id)
     end
   end
 
