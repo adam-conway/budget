@@ -14,6 +14,6 @@ describe "User sees one budget" do
 
     expect(current_path).to eq(user_budget_path(user, budget))
     expect(page).to have_content("Rent")
-    expect(Category.count).to eq(1)
+    expect(Category.count).to eq(2)
   end
 end

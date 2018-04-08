@@ -6,7 +6,7 @@ describe Category do
       it "is invalid without a title" do
         user = User.create!(username: "Adam", password: "password")
         budget = user.budgets.new(name: "Denver")
-        category = Category.new(budget_id: budget.id)
+        category = Category.new()
         expect(category).to be_invalid
       end
     end
@@ -15,7 +15,7 @@ describe Category do
       it "is valid with all attributes" do
         user = User.create!(username: "Adam", password: "password")
         budget = user.budgets.create!(name: "Denver")
-        category = budget.categories.new(title: "Rent", budget_id: budget.id)
+        category = budget.categories.new(title: "Rent")
         expect(category).to be_valid
       end
     end
