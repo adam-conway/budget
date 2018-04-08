@@ -11,7 +11,7 @@ describe "User creates a new charge" do
     fill_in "charge[date]", with: "1991-08-28"
     fill_in "charge[payee]", with: "Jake"
     fill_in "charge[notes]", with: "Horrible purchase"
-    fill_in "charge[outflow]", with: 20
+    fill_in "charge[amount]", with: 20
     click_button "Create"
 
     expect(current_path).to eq(user_budget_charges_path(user, budget))
@@ -27,7 +27,7 @@ describe "User creates a new charge" do
     fill_in "charge[date]", with: "1991-08-28"
     fill_in "charge[payee]", with: "Adam"
     fill_in "charge[notes]", with: "Horrible purchase"
-    fill_in "charge[outflow]", with: 20
+    fill_in "charge[amount]", with: 20
 
     click_button "Create"
 
