@@ -50,7 +50,7 @@
 
     <% @categories.each do |category| %>
       <tr>
-        <%= fields_for 'charge_categorie_adjustments[]', @charge_category_adjustment do |cc_form| %>
+        <%= fields_for "adjustments[#{category.id}]", @adjustment do |adjustment| %>
         <th scope="row">
 
         </th>
@@ -68,7 +68,7 @@
         <td>
           <div class="form-group">
             <div class="col-md-8">
-              <%= cc_form.number_field :amount, step: 0.01, class: "form-control" %>
+              <%= adjustment.number_field :amount, step: 0.01, class: "form-control" %>
             </div>
           </div>
         </td>
