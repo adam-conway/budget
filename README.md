@@ -21,4 +21,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+To Dos:
+
+* Add in Factory bot
+* Refactor test file structure

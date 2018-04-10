@@ -14,7 +14,6 @@ describe "User sees one budget" do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
       visit user_budget_path(user, budget)
-      save_and_open_page
 
       within(category2.title.to_s) do
         fill_in 'adjustment[amount]', with: 50
